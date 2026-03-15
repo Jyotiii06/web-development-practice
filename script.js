@@ -1,20 +1,65 @@
-function add(){
-    let a=parseFloat(document.getElementById("num1").value);
-    let b=parseFloat(document.getElementById("num2").value);
-    document.getElementById("Result").innerHTML="Result:"+(a+b);
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+function saveTasks(){
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
-function subtract(){
-    let a=parseFloat(document.getElementById("num1").value);
-    let b=parseFloat(document.getElementById("num2").value);
-    document.getElementById("Result").innerHTML="Result:"+(a-b);
+
+function addTask(){
+    let input = document.getElementById("taskInput");
+    
+    if(input.value === "") return;
+
+    tasks.push({
+        text: input.value,
+        completed:false
+    });
+
+    input.value="";
+    saveTasks();
+    displayTasks();
 }
-function multiply(){
-    let a=parseFloat(document.getElementById("num1").value);
-    let b=parseFloat(document.getElementById("num2").value);
-    document.getElementById("Result").innerHTML="Result:"+(a*b);
+
+function displayTasks(filter="all"){
+
+    let list = document.getElementById("taskList");
+    list.innerHTML="";
+
+    tasks.forEach((task,index)=>{
+
+        if(filter==="active" && task.completed) return;
+        if(filter==="completed" && !task.completed) return;
+
+        let li=document.createElement("li");
+
+        li.innerHTML=`
+        <span onclick="toggleTask(${index})" class="${task.completed?'completed':''}">
+        ${task.text}
+        </span>
+        <button onclick="deleteTask(${index})">X</button>
+        `;
+
+        list.appendChild(li);
+    });
 }
-function divide(){
-    let a=parseFloat(document.getElementById("num1").value);
-    let b=parseFloat(document.getElementById("num2").value);
-    document.getElementById("Result").innerHTML="Result:"+(a/b);
+
+function toggleTask(index){
+    tasks[index].completed=!tasks[index].completed;
+    saveTasks();
+    displayTasks();
 }
+
+function deleteTask(index){
+    tasks.splice(index,1);
+    saveTasks();
+    displayTasks();
+}
+
+function filterTasks(type){
+    displayTasks(type);
+}
+
+function toggleDark(){
+    document.body.classList.toggle("dark");
+}
+
+displayTasks();
