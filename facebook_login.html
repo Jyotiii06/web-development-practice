@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Login Page</title>
+
+<style>
+    * {
+        box-sizing: border-box; /* FIXES overflow issue */
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;  /* center horizontally */
+        align-items: center;      /* center vertically */
+    }
+
+    .container {
+        width: 350px;
+        background: #fff;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+
+    h1 {
+        color: #1877f2;
+        margin-bottom: 10px;
+    }
+
+    input {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+
+    button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .login-btn {
+        background-color: #1877f2;
+        color: white;
+    }
+
+    .signup-btn {
+        background-color: #42b72a;
+        color: white;
+        margin-top: 10px;
+    }
+
+    .divider {
+        margin: 15px 0;
+        color: gray;
+    }
+
+    .signup-form {
+        display: none;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>facebook</h1>
+
+    <!-- Login -->
+    <div id="loginForm">
+        <input type="text" placeholder="Email or Username">
+        <input type="password" placeholder="Password">
+        <button class="login-btn">Log In</button>
+
+        <div class="divider">or</div>
+
+        <button class="signup-btn" onclick="showSignup()">Create Account</button>
+    </div>
+
+    <!-- Signup -->
+    <div id="signupForm" class="signup-form">
+        <input type="text" placeholder="Full Name">
+        <input type="text" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button class="signup-btn">Sign Up</button>
+
+        <div class="divider">or</div>
+
+        <button class="login-btn" onclick="showLogin()">Back to Login</button>
+    </div>
+</div>
+
+<script>
+function showSignup() {
+    document.getElementById("loginForm").style.display = "none";
+    document.getElementById("signupForm").style.display = "block";
+}
+
+function showLogin() {
+    document.getElementById("signupForm").style.display = "none";
+    document.getElementById("loginForm").style.display = "block";
+}
+</script>
+
+</body>
+</html>
