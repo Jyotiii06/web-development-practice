@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Instagram Sign Up</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      width: 350px;
+    }
+
+    .signup-box {
+      background: #fff;
+      border: 1px solid #dbdbdb;
+      padding: 30px;
+      text-align: center;
+    }
+
+    .logo img {
+      width: 100px;   /* pehle 180px tha */
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      color: #8e8e8e;
+      font-size: 14px;
+      margin-bottom: 20px;
+    }
+
+    form input {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0;
+      border: 1px solid #dbdbdb;
+      border-radius: 3px;
+      background: #fafafa;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #0095f6;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0077cc;
+    }
+
+    .terms {
+      font-size: 12px;
+      color: #8e8e8e;
+      margin-top: 15px;
+    }
+
+    .login-box {
+      margin-top: 10px;
+      background: #fff;
+      border: 1px solid #dbdbdb;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .login-box a {
+      color: #0095f6;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .error {
+      color: red;
+      font-size: 12px;
+      text-align: left;
+      display: none;
+    }
+
+    .success {
+      color: green;
+      font-size: 14px;
+      margin-top: 10px;
+      display: none;
+    }
+  </style>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="signup-box">
+    
+    <!-- Logo -->
+    <div class="logo">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+    </div>
+
+    <p class="tagline">Sign up to see photos and videos from your friends.</p>
+
+    <form id="signupForm">
+      <input type="text" id="email" placeholder="Mobile Number or Email">
+      <div class="error" id="emailError">Enter a valid email</div>
+
+      <input type="text" id="name" placeholder="Full Name">
+      <div class="error" id="nameError">Name is required</div>
+
+      <input type="text" id="username" placeholder="Username">
+      <div class="error" id="usernameError">Username is required</div>
+
+      <input type="password" id="password" placeholder="Password">
+      <div class="error" id="passwordError">Password must be at least 6 characters</div>
+
+      <button type="submit">Sign up</button>
+    </form>
+
+    <div class="success" id="successMsg">Signup successful! 🎉</div>
+
+    <p class="terms">
+      By signing up, you agree to our Terms, Privacy Policy and Cookies Policy.
+    </p>
+  </div>
+
+  <div class="login-box">
+    <p>Have an account? <a href="#">Log in</a></p>
+  </div>
+</div>
+
+<script>
+  const form = document.getElementById('signupForm');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    let isValid = true;
+
+    const email = document.getElementById('email').value.trim();
+    const name = document.getElementById('name').value.trim();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
+
+    if (!email.includes('@')) {
+      document.getElementById('emailError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (name === '') {
+      document.getElementById('nameError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (username === '') {
+      document.getElementById('usernameError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (password.length < 6) {
+      document.getElementById('passwordError').style.display = 'block';
+      isValid = false;
+    }
+
+    if (isValid) {
+      document.getElementById('successMsg').style.display = 'block';
+      form.reset();
+    }
+  });
+</script>
+
+</body>
+</html>
