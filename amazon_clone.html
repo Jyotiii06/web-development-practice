@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Amazon Clone</title>
+        <style>
+            body{
+                font-family: Arial, sans-serif;
+                background: #e3e6e6;
+                margin: 0;
+            }
+            .header{
+                background: #131921;
+                display: flex;
+                color: white;
+                align-items: center;
+                padding: 10px 20px;
+            }
+            .logo{
+                font-size: 22px;
+                font-weight: bold;
+                margin-right: 20px;
+            }
+            .search-bar{
+                flex:1;
+                display: flex;
+            }
+            .search-bar input{
+                padding: 8px;
+                border: none;
+                width: 100px; 
+            }
+            .search-bar button{
+                background: orange;
+                padding: 8px 15px;
+                border: none;
+                cursor: pointer;
+            }
+            .nav{
+                margin-left: 20px;    
+            }
+            .banner{
+                background: url('https://via.placeholder.com/1500x400') no repeat center;
+                background-size: cover;
+                height: 300px;    
+            }
+            .products{
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-around;
+                padding: 20px;
+            }
+            .card{
+                background: white;
+                width: 20%;
+                margin: 10px;
+                padding: 15px;
+                box-shadow: 0 0 10px #ccc;
+                text-align: center;
+            }
+            .card img{
+                width: 90%;
+                height: 200px;
+                object-fit: cover;
+            }
+            .card button{
+                background: #ffd814;
+                border: none;
+                padding: 10px;
+                margin-top: 10px;
+                cursor: pointer;
+            }
+            .footer{
+                background: #131921;
+                color: white;
+                text-align: center;
+                padding: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="logo">Amazon</div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search products">
+                <button>Search</button>
+            </div>
+            <div class="nav">Account</div>
+            <div class="nav">Order</div>
+            <div class="nav">Cart</div>
+        </div>
+        <div class="banner"></div>
+        <div class="products">
+            <div class="card">
+                <img src="https://via.placeholder.com/200">
+                <h3>Product 1</h3>
+                <p>₹999</p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/200">
+                <h3>Product 2</h3>
+                <p>₹1499</p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/200">
+                <h3>Product 3</h3>
+                <p>₹799</p>
+                <button>Add to Cart</button>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/200">
+                <h3>Product 4</h3>
+                <p>₹1999</p>
+                <button>Add to Cart</button>
+            </div>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 Amazone Clone</p>
+        </div>
+    </body>
+</html>
+
