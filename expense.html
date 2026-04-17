@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Expense Tracker</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #f4f4f4;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  background: white;
+  padding: 20px;
+  width: 350px;
+  margin-top: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #ccc;
+}
+
+h2 {
+  text-align: center;
+}
+
+.balance {
+  text-align: center;
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.money.plus { color: green; }
+.money.minus { color: red; }
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  background: #eee;
+  padding: 10px;
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+  border-right: 5px solid;
+}
+
+li.plus { border-color: green; }
+li.minus { border-color: red; }
+
+button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background: #333;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 2px 6px;
+  cursor: pointer;
+  margin-left: 10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Expense Tracker</h2>
+
+  <div class="balance">
+    <h3>Balance</h3>
+    <h1 id="balance">₹0.00</h1>
+  </div>
+
+  <div class="summary">
+    <div>
+      <h4>Income</h4>
+      <p id="income" class="money plus">₹0.00</p>
+    </div>
+    <div>
+      <h4>Expense</h4>
+      <p id="expense" class="money minus">₹0.00</p>
+    </div>
+  </div>
+
+  <h3>History</h3>
+  <ul id="list"></ul>
+
+  <h3>Add Transaction</h3>
+  <form id="form">
+    <input type="text" id="text" placeholder="Enter description" required>
+    <input type="number" id="amount" placeholder="Enter amount (+/-)" required>
+    <button>Add</button>
+  </form>
+</div>
+
+<script>
+const balance = document.getElementById('balance');
+const income = document.getElementById('income');
+const expense = document.getElementById('expense');
+const list = document.getElementById('list');
+const form = document.getElementById('form');
+const text = document.getElementById('text');
+const amount = document.getElementById('amount');
+
+let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+
+function addTransaction(e) {
+  e.preventDefault();
+
+  if(text.value.trim() === '' || amount.value.trim() === '') {
+    alert('Please enter description and amount');
+    return;
+  }
+
+  const transaction = {
+    id: Date.now(),
+    text: text.value,
+    amount: +amount.value
+  };
+
+  transactions.push(transaction);
+  updateLocalStorage();
+  init();
+
+  text.value = '';
+  amount.value = '';
+}
+
+function removeTransaction(id) {
+  transactions = transactions.filter(t => t.id !== id);
+  updateLocalStorage();
+  init();
+}
+
+function updateValues() {
+  const amounts = transactions.map(t => t.amount);
+
+  const total = amounts.reduce((a, b) => a + b, 0);
+  const inc = amounts.filter(a => a > 0).reduce((a, b) => a + b, 0);
+  const exp = amounts.filter(a => a < 0).reduce((a, b) => a + b, 0);
+
+  balance.innerText = '₹' + total.toFixed(2);
+  income.innerText = '₹' + inc.toFixed(2);
+  expense.innerText = '₹' + Math.abs(exp).toFixed(2);
+}
+
+function addToDOM(transaction) {
+  const li = document.createElement('li');
+
+  li.classList.add(transaction.amount > 0 ? 'plus' : 'minus');
+
+  li.innerHTML = `
+    ${transaction.text} 
+    <span>₹${transaction.amount}</span>
+    <button class="delete-btn" onclick="removeTransaction(${transaction.id})">x</button>
+  `;
+
+  list.appendChild(li);
+}
+
+function init() {
+  list.innerHTML = '';
+  transactions.forEach(addToDOM);
+  updateValues();
+}
+
+function updateLocalStorage() {
+  localStorage.setItem('transactions', JSON.stringify(transactions));
+}
+
+form.addEventListener('submit', addTransaction);
+
+init();
+</script>
+
+</body>
+</html>
